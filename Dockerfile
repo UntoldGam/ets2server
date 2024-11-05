@@ -4,20 +4,16 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV STEAMCMD_DIR=/steamcmd
 ENV ETS2_SERVER_DIR=/ets2
 
-# Add multiarch support for i386
-RUN dpkg --add-architecture i386 && apt-get update
-
-# Install dependencies and SteamCMD
+# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    gcc \
-    g++ \
-    libcurl4 \
-    libssl-dev \
-    software-properties-common && \
-    add-apt-repository multiverse && \
-    apt-get update && apt-get install -y --no-install-recommends steamcmd && \
-    rm -rf /var/lib/apt/lists/*
+    qemu-user \
+    qemu-user-static \
+    binfmt-support \
+    libc6:i386 \
+    libcurl4:i386 \
+    libssl1.1:i386 \
+    steamcmd \
+    && rm -rf /var/lib/apt/lists/*
 
 # Create necessary directories
 RUN mkdir -p ${STEAMCMD_DIR} ${ETS2_SERVER_DIR}
