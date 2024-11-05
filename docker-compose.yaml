@@ -1,0 +1,18 @@
+services:
+  ets2-server:
+    build: .
+    container_name: ets2-server
+    environment:
+      - STEAM_USER=your_steam_username
+      - STEAM_PASS=your_steam_password
+      - SERVER_TOKEN=your_server_token
+      - MAX_PLAYERS=8
+      - SERVER_NAME=MyETS2Server
+      - SERVER_DESCRIPTION=Dedicated ETS2 server
+      - SERVER_PASSWORD=your_password
+    ports:
+      - 27015:27015/udp
+      - 27016:27016/udp
+    volumes:
+      - ./ets2-data:/ets2
+    restart: unless-stopped
